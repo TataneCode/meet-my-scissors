@@ -1,5 +1,5 @@
-import { connectDB } from '@/server/lib/mongodb';
-import Stuff from '@/server/models/stuff';
+import { connectDB } from '@/app/lib/mongodb';
+import Stuff from '@/app/models/stuff';
 
 export async function GET() {
     await connectDB();

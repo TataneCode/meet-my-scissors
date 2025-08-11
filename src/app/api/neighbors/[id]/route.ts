@@ -1,5 +1,5 @@
-import { connectDB } from '@/server/lib/mongodb';
-import Neighbor from '@/server/models/neighbor';
+import { connectDB } from '@/app/lib/mongodb';
+import Neighbor from '@/app/models/neighbor';
 
 type Params = { params: { id: string } };
 
