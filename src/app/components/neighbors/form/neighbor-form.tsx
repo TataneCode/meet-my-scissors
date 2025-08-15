@@ -1,10 +1,11 @@
 'use client';
 
 import { useNeighborForm } from './use-neighbor-form';
+import { neighborFormText } from '@/app/components/neighbors/neighbors.text';
 
-export default function NeighborForm({ onCreated }: { onCreated?: () => void }) {
+export default function NeighborForm({ onCreatedAction }: { onCreatedAction?: () => void }) {
     const { form, loading, error, handleChange, handleSubmit } =
-        useNeighborForm(onCreated);
+        useNeighborForm(onCreatedAction);
 
     return (
         <form
@@ -12,7 +13,7 @@ export default function NeighborForm({ onCreated }: { onCreated?: () => void }) 
             className="max-w-md mx-auto p-4 border rounded shadow-sm space-y-4"
         >
             <div>
-                <label className="block text-sm font-medium">Nom</label>
+                <label className="block text-sm font-medium">{neighborFormText.name}</label>
                 <input
                     type="text"
                     name="name"
@@ -24,7 +25,7 @@ export default function NeighborForm({ onCreated }: { onCreated?: () => void }) 
             </div>
 
             <div>
-                <label className="block text-sm font-medium">Email</label>
+                <label className="block text-sm font-medium">{neighborFormText.email}</label>
                 <input
                     type="email"
                     name="email"
@@ -42,7 +43,7 @@ export default function NeighborForm({ onCreated }: { onCreated?: () => void }) 
                 disabled={loading}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
             >
-                {loading ? 'Envoi...' : 'Créer'}
+                {loading ? neighborFormText.loading : neighborFormText.create}
             </button>
         </form>
     );

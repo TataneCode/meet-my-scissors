@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { createNeighbor, NeighborCreateRequest } from '../../../client/neighbors.client';
+import { createNeighbor, NeighborCreateRequest } from '@/app/client/neighbors.client';
 
 export function useNeighborForm(onSuccess?: () => void) {
     const [form, setForm] = useState<NeighborCreateRequest>({ name: '', email: '' });

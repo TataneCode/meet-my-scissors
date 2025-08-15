@@ -1,14 +1,14 @@
 'use client';
 
 import { useNeighbors } from './use-neighbors';
-import { text } from '../neighbors-list.text';
+import { neighborsListText } from '../neighbors.text';
 
 export default function NeighborList() {
     const { neighbors, loading, error } = useNeighbors();
 
-    if (loading) return <p className="text-gray-500">{text.loading}</p>;
-    if (error) return <p className="text-red-500">{text.error}</p>;
-    if (neighbors.length === 0) return <p className="text-gray-500">{text.message}</p>;
+    if (loading) return <p className="text-gray-500">{neighborsListText.loading}</p>;
+    if (error) return <p className="text-red-500">{neighborsListText.error}</p>;
+    if (neighbors.length === 0) return <p className="text-gray-500">{neighborsListText.message}</p>;
 
     return (
         <div className="space-y-4">
