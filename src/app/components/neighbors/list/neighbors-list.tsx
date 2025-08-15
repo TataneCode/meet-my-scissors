@@ -1,7 +1,7 @@
 'use client';
 
-import { useNeighbors } from '../hooks/use-neighbors';
-import { text } from './neighbors-list.text';
+import { useNeighbors } from './use-neighbors';
+import { text } from '../neighbors-list.text';
 
 export default function NeighborList() {
     const { neighbors, loading, error } = useNeighbors();

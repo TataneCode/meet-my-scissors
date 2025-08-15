@@ -1,6 +1,6 @@
 'use client';
 
-import { useNeighborForm } from '../hooks/use-neighbor-form';
+import { useNeighborForm } from './use-neighbor-form';
 
 export default function NeighborForm({ onCreated }: { onCreated?: () => void }) {
     const { form, loading, error, handleChange, handleSubmit } =

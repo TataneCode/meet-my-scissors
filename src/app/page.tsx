@@ -1,4 +1,4 @@
-import NeighborList from './components/neighbors-list';
+import NeighborList from './components/neighbors/list/neighbors-list';
 
 export default function Home() {
   return (

@@ -18,7 +18,7 @@ export default function NavMenu() {
             <Link href="/" className={linkClasses('/')}>
                 Home
             </Link>
-            <Link href="/neighbors" className={linkClasses('/neighbors')}>
+            <Link href="/neighbors/create" className={linkClasses('/neighbors')}>
                 Add neighbor
             </Link>
         </nav>

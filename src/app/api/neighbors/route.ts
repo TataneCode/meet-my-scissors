@@ -1,5 +1,5 @@
-import { connectDB } from '@/app/lib/mongodb';
-import Neighbor from '@/app/models/neighbor';
+import { connectDB } from '@/app/api/lib/mongodb';
+import Neighbor from '@/app/api/models/neighbor';
 
 export async function GET() {
     await connectDB();

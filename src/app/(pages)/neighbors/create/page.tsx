@@ -1,4 +1,4 @@
-import NeighborForm from '../components/neighbor-form';
+import NeighborForm from '../../../components/neighbors/form/neighbor-form';
 
 export default function NeighborsPage() {
     return (

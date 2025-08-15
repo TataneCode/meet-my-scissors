@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getNeighbors, NeighborResponse } from '../client/neighbors.client';
+import { getNeighbors, NeighborResponse } from '../../../client/neighbors.client';
 
 export function useNeighbors() {
     const [neighbors, setNeighbors] = useState<NeighborResponse[]>([]);

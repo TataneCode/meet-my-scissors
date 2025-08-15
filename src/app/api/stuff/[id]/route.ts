@@ -1,5 +1,5 @@
-import { connectDB } from '@/app/lib/mongodb';
-import Stuff from '@/app/models/stuff';
+import { connectDB } from '@/app/api/lib/mongodb';
+import Stuff from '@/app/api/models/stuff';
 
 type Params = { params: { id: string } };
 
