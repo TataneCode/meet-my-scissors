@@ -2,6 +2,7 @@
 
 import { useNeighbors } from './use-neighbors';
 import { neighborsListText } from '../neighbors.text';
+import Link from 'next/link';
 
 export default function NeighborList() {
     const { neighbors, loading, error } = useNeighbors();
@@ -13,13 +14,16 @@ export default function NeighborList() {
     return (
         <div className="space-y-4">
             {neighbors.map((n) => (
-                <div
+                <Link
                     key={n._id}
-                    className="p-4 border border-gray-200 rounded-lg shadow-sm"
+                    href={`/neighbors/details/${n._id}`}
+                    className="block p-4 border border-gray-200 rounded-lg shadow-sm
+             bg-gray-700 hover:bg-gray-800 focus:bg-gray-800 transition"
                 >
-                    <h2 className="text-lg font-semibold">{n.name}</h2>
-                    <p className="text-sm text-gray-600">{n.email}</p>
-                </div>
+                    <h2 className="text-lg font-semibold text-white">{n.name}</h2>
+                    <p className="text-sm text-gray-300">{n.email}</p>
+                </Link>
+
             ))}
         </div>
     );
