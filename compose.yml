@@ -13,5 +13,33 @@ services:
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongo
 
+  next:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: meet-my-scissors
+    env_file:
+      - .env.docker
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    # Prod start :
+    # command: sh -c "npm run build && npm run start"
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - next
+
 volumes:
   mongo_data:

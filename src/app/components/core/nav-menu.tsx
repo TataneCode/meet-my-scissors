@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import {menuTexts} from "@/app/components/core/nav-menu.text";
 
 export default function NavMenu() {
     const pathname = usePathname();
@@ -16,10 +17,10 @@ export default function NavMenu() {
     return (
         <nav className="flex gap-4 mb-6 border-b border-gray-700 pb-3">
             <Link href="/" className={linkClasses('/')}>
-                Home
+                { menuTexts.home }
             </Link>
             <Link href="/neighbors/create" className={linkClasses('/neighbors')}>
-                Add neighbor
+                { menuTexts.addNeighbor }
             </Link>
         </nav>
     );

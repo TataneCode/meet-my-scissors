@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev-win": "docker compose up mongo -d && next dev",
+    "dev-ux": "sudo docker compose up mongo -d && next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
