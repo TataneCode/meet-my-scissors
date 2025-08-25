@@ -1,12 +1,13 @@
+import NeighborDetails from '@/app/components/neighbors/details/neighbor-details';
+
 interface NeighborDetailPageProps {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }
 
-export default function NeighborDetailPage({ params }: NeighborDetailPageProps) {
+export default async function NeighborDetailPage({params}: NeighborDetailPageProps) {
+    const {id} = await params;
+
     return (
-        <main className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Détail du voisin</h1>
-            <p className="text-gray-700">ID du voisin : {params.id}</p>
-        </main>
+        <NeighborDetails neighborId={id}/>
     );
 }

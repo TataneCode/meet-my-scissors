@@ -1,10 +1,12 @@
 'use client';
 
-import { useNeighborForm } from './use-neighbor-form';
-import { neighborFormText } from '@/app/components/neighbors/neighbors.text';
+import {useNeighborForm} from './use-neighbor-form';
+import {neighborFormText} from '@/app/components/neighbors/neighbors.text';
+import ScissorsButton from '@/app/components/core/scissors-button';
+import {Plus} from 'lucide-react';
 
-export default function NeighborForm({ onCreatedAction }: { onCreatedAction?: () => void }) {
-    const { form, loading, error, handleChange, handleSubmit } =
+export default function NeighborForm({onCreatedAction}: { onCreatedAction?: () => void }) {
+    const {form, loading, error, handleChange, handleSubmit} =
         useNeighborForm(onCreatedAction);
 
     return (
@@ -37,14 +39,13 @@ export default function NeighborForm({ onCreatedAction }: { onCreatedAction?: ()
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
-
-            <button
+            <ScissorsButton
                 type="submit"
+                icon={<Plus size={16}/>}
+                text={loading ? neighborFormText.loading : neighborFormText.create}
                 disabled={loading}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-            >
-                {loading ? neighborFormText.loading : neighborFormText.create}
-            </button>
+                variant="standard"
+            />
         </form>
     );
 }

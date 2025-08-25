@@ -1,7 +1,13 @@
 export const neighborsListText = {
-    loading: 'Loading...',
-    error: 'Something went wrong...',
-    message: 'No neighbor found !',
+    loading: 'Chargement...',
+    error: 'Une erreur s\'est produite...',
+    message: 'Aucun voisin retrouvé !',
+};
+
+export const neighborDetailsText = {
+    loading: 'Chargement...',
+    error: 'Une erreur s\'est produite...',
+    message: 'Aucun voisin retrouvé pour l\'id : ',
 };
 
 export const neighborFormText = {

@@ -1,4 +1,4 @@
-import { connectDB } from '@/app/api/lib/mongodb';
+import {connectDB} from '@/lib/mongodb';
 import Neighbor from '@/app/api/models/neighbor';
 
 export async function GET() {

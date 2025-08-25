@@ -9,6 +9,12 @@ export type NeighborCreateRequest = {
     email: string;
 }
 
+export async function getNeighborById(id: string): Promise<NeighborResponse> {
+    const res = await fetch(`/api/neighbors/${id}`);
+    if (!res.ok) throw new Error('Failed to fetch neighbor');
+    return res.json();
+}
+
 export async function getNeighbors(): Promise<NeighborResponse[]> {
     const res = await fetch('/api/neighbors');
     if (!res.ok) throw new Error('Failed to fetch neighbors');
