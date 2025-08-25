@@ -2,6 +2,8 @@
 
 import {useNeighborDetails} from '@/app/components/neighbors/details/use-neighbor-details';
 import {neighborDetailsText} from '@/app/components/neighbors/neighbors.text';
+import ScissorsButton from "@/app/components/core/scissors-button";
+import {Plus} from "lucide-react";
 
 interface NeighborDetailsProps {
     neighborId: string;
@@ -15,7 +17,15 @@ export default function NeighborDetails({neighborId}: NeighborDetailsProps) {
 
     return (
         <div className="flex flex-col items-start p-4 gap-2 border rounded shadow-sm">
-            <h1 className="text-2xl font-bold mb-4">Détail du voisin</h1>
+            <div className="flex flex-row justify-between w-full">
+                <h1 className="text-2xl font-bold mb-4">Détail du voisin</h1>
+                <ScissorsButton
+                    text="Ajouter un équipement"
+                    icon={<Plus size={16}/>}
+                    variant="standard"
+                />
+            </div>
+
             <h2>{neighborDetails.name}</h2>
             <p className="text-gray-700">{neighborDetails.email}</p>
         </div>
