@@ -1,23 +1,54 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import NeighborList from './neighbors-list';
+import { renderHook, waitFor } from '@testing-library/react';
+import { useNeighbors } from './use-neighbors';
+import { getNeighbors } from '@/app/client/neighbors.client';
+import { vi } from 'vitest';
 
-describe('NeighborList', () => {
+// Mock du module client
+vi.mock('@/app/client/neighbors.client', () => ({
+    getNeighbors: vi.fn(),
+}));
+
+const mockGetNeighbors = vi.mocked(getNeighbors);
+
+describe('useNeighbors', () => {
     beforeEach(() => {
-        // mock global fetch
-        global.fetch = vi.fn().mockResolvedValue({
-            json: async () => [
-                { _id: '1', name: 'Alice', email: 'alice@mail.com' },
-                { _id: '2', name: 'Bob', email: 'bob@mail.com' },
-            ],
-        }) as never;
+        vi.clearAllMocks();
     });
 
-    it('renders neighbors from API', async () => {
-        render(<NeighborList />);
+    it('should return neighbors when API call succeeds', async () => {
+        const mockNeighbors = [
+            { _id: '1', name: 'Alice', email: 'alice@mail.com' },
+            { _id: '2', name: 'Bob', email: 'bob@mail.com' },
+        ];
+
+        mockGetNeighbors.mockResolvedValue(mockNeighbors);
+
+        const { result } = renderHook(() => useNeighbors());
+
+        expect(result.current.loading).toBe(true);
+        expect(result.current.neighbors).toEqual([]);
+        expect(result.current.error).toBe(null);
 
         await waitFor(() => {
-            expect(screen.getByText('Alice')).toBeInTheDocument();
-            expect(screen.getByText('Bob')).toBeInTheDocument();
+            expect(result.current.loading).toBe(false);
         });
+
+        expect(result.current.neighbors).toEqual(mockNeighbors);
+        expect(result.current.error).toBe(null);
+        expect(mockGetNeighbors).toHaveBeenCalledTimes(1);
+    });
+
+    it('should handle API errors', async () => {
+        const errorMessage = 'API Error';
+        mockGetNeighbors.mockRejectedValue(new Error(errorMessage));
+
+        const { result } = renderHook(() => useNeighbors());
+
+        await waitFor(() => {
+            expect(result.current.loading).toBe(false);
+        });
+
+        expect(result.current.neighbors).toEqual([]);
+        expect(result.current.error).toBe(errorMessage);
     });
 });
