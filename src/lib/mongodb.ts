@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 let isConnected = false;
 
-export const connectDB = async () => {
+export const dbConnect = async () => {
     if (isConnected) return;
 
     const uri = process.env.MONGODB_URI as string;

@@ -1,23 +1,23 @@
-import {connectDB} from '@/lib/mongodb';
+import {dbConnect} from '@/lib/mongodb';
 import Neighbor from '@/app/api/models/neighbor';
 
 type Params = { params: { id: string } };
 
 export async function GET(_: Request, {params}: Params) {
-    await connectDB();
+    await dbConnect();
     const neighbor = await Neighbor.findById(params.id);
     return Response.json(neighbor);
 }
 
 export async function PUT(req: Request, {params}: Params) {
-    await connectDB();
+    await dbConnect();
     const data = await req.json();
     const updated = await Neighbor.findByIdAndUpdate(params.id, data, {new: true});
     return Response.json(updated);
 }
 
 export async function DELETE(_: Request, {params}: Params) {
-    await connectDB();
+    await dbConnect();
     await Neighbor.findByIdAndDelete(params.id);
     return Response.json({message: 'Neighbor deleted'});
 }
