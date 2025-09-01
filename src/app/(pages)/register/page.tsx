@@ -1,31 +1,32 @@
 'use client';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {Register} from '@/app/client/auth.client';
+import ScissorsButton from '@/app/components/core/scissors-button';
+import {UserPlus} from 'lucide-react';
+import {createNeighbor} from '@/app/client/neighbors.client';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('user');
     const [message, setMessage] = useState('');
 
-    async function handleSubmit(e: React.FormEvent) {
+    async function handleSubmitAsync(e: React.FormEvent) {
         e.preventDefault();
-        const res = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password, role }),
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-            setMessage('✅ User created successfully!');
-        } else {
-            setMessage(`❌ Error: ${data.error}`);
+        try {
+            const registerResponse = await Register({ email, password, role });
+            await createNeighbor({ name, userId: registerResponse.user.id, address });
+            setMessage('✅ User and neighbor created!');
+        } catch (err) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            setMessage(`❌ Error: ${errorMsg}`);
         }
     }
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
+        <form onSubmit={handleSubmitAsync} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
             <input
                 type="text"
                 placeholder="Name"
@@ -39,6 +40,13 @@ export default function RegisterPage() {
                 className="border p-2"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+            />
+            <textarea
+                placeholder="Addresse"
+                className="border p-2 resize-vertical"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                rows={3}
             />
             <input
                 type="password"
@@ -55,9 +63,7 @@ export default function RegisterPage() {
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
             </select>
-            <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
-                Register
-            </button>
+            <ScissorsButton text="Register" type="submit" variant="standard" icon={<UserPlus />} />
             {message && <p>{message}</p>}
         </form>
     );
