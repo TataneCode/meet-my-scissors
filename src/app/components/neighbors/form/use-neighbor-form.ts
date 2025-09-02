@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { createNeighbor, NeighborCreateRequest } from '@/app/client/neighbors.client';
+import React, {useState} from 'react';
+import {createNeighbor, NeighborCreateRequest} from '@/app/client/neighbors.client';
 
 export function useNeighborForm(onSuccess?: () => void) {
-    const [form, setForm] = useState<NeighborCreateRequest>({ name: '', email: '' });
+    const [form, setForm] = useState<NeighborCreateRequest>({name: '', email: ''});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({...form, [e.target.name]: e.target.value});
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -19,7 +19,7 @@ export function useNeighborForm(onSuccess?: () => void) {
 
         try {
             await createNeighbor(form);
-            setForm({ name: '', email: '' });
+            setForm({name: '', address: ''});
             if (onSuccess) onSuccess();
         } catch (err) {
             setError((err as Error).message);
