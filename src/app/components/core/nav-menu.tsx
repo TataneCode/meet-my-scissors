@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {menuTexts} from "@/app/components/core/nav-menu.text";
+import {menuTexts} from '@/app/components/core/nav-menu.text';
 
 export default function NavMenu() {
     const pathname = usePathname();
@@ -21,6 +21,9 @@ export default function NavMenu() {
             </Link>
             <Link href="/neighbors/create" className={linkClasses('/neighbors')}>
                 { menuTexts.addNeighbor }
+            </Link>
+            <Link href="/register" className={linkClasses('/register')}>
+                { menuTexts.register }
             </Link>
         </nav>
     );

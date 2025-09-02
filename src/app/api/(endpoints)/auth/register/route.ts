@@ -1,15 +1,15 @@
 import {NextResponse} from 'next/server';
 import bcrypt from 'bcrypt';
-import User from '@/app/api/models/user';
+import User, {IUser, UserRole} from '@/app/api/models/user';
 import {dbConnect} from '@/lib/mongodb';
 
 export async function POST(req: Request) {
     try {
         await dbConnect();
-        const body = await req.json();
-        const {email, password, role} = body;
+        const body: IUser = await req.json();
+        const {email, password, role = UserRole.user, address = '', name} = body;
 
-        if (!email || !password) {
+        if (!email || !password || !name) {
             return NextResponse.json({error: 'Missing fields'}, {status: 400});
         }
 
@@ -23,7 +23,9 @@ export async function POST(req: Request) {
         const user = await User.create({
             email,
             password: hashedPassword,
-            role: role || 'user',
+            role: role,
+            address,
+            name,
         });
 
         return NextResponse.json(

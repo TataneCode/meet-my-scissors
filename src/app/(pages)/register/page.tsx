@@ -1,24 +1,25 @@
 'use client';
 import React, {useState} from 'react';
-import {Register} from '@/app/client/auth.client';
+import {Register} from '@/app/client/auth/auth.client';
 import ScissorsButton from '@/app/components/core/scissors-button';
 import {UserPlus} from 'lucide-react';
 import {createNeighbor} from '@/app/client/neighbors.client';
+import {RegisterRequest} from '@/app/client/auth/requests';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('user');
+    const [role, setRole] = useState(0);
     const [message, setMessage] = useState('');
 
     async function handleSubmitAsync(e: React.FormEvent) {
         e.preventDefault();
         try {
-            const registerResponse = await Register({ email, password, role });
-            await createNeighbor({ name, userId: registerResponse.user.id, address });
-            setMessage('✅ User and neighbor created!');
+            const request: RegisterRequest = { email, password, role, name, address };
+            await Register(request);
+            setMessage('✅ User created!');
         } catch (err) {
             const errorMsg = err instanceof Error ? err.message : String(err);
             setMessage(`❌ Error: ${errorMsg}`);
@@ -58,10 +59,10 @@ export default function RegisterPage() {
             <select
                 className="border p-2"
                 value={role}
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => setRole(Number(e.target.value))}
             >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
+                <option value="0">User</option>
+                <option value="1">Admin</option>
             </select>
             <ScissorsButton text="Register" type="submit" variant="standard" icon={<UserPlus />} />
             {message && <p>{message}</p>}
