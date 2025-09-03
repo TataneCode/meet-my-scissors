@@ -1,15 +1,8 @@
 import {dbConnect} from '@/lib/mongodb';
-import Neighbor from '@/app/api/models/neighbor';
+import User, {UserRole} from '@/app/api/models/user';
 
 export async function GET() {
     await dbConnect();
-    const neighbors = await Neighbor.find();
+    const neighbors = await User.find({role: UserRole.user});
     return Response.json(neighbors);
-}
-
-export async function POST(req: Request) {
-    await dbConnect();
-    const data = await req.json();
-    const neighbor = await Neighbor.create(data);
-    return Response.json(neighbor);
 }

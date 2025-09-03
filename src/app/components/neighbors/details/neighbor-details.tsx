@@ -2,8 +2,8 @@
 
 import {useNeighborDetails} from '@/app/components/neighbors/details/use-neighbor-details';
 import {neighborDetailsText} from '@/app/components/neighbors/neighbors.text';
-import ScissorsButton from "@/app/components/core/scissors-button";
-import {Plus} from "lucide-react";
+import ScissorsButton from '@/app/components/core/scissors-button';
+import {Plus} from 'lucide-react';
 
 interface NeighborDetailsProps {
     neighborId: string;
